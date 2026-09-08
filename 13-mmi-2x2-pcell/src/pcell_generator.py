@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+"""Multimode Interference 2x2 Coupler PCell
+Technology : InP photonic integrated circuits
+Materials  : InGaAsP/InP MQW n=3.38
+Parameters : W_mmi, L_mmi from beat length, parabolic tapers
+Stack      : Self-imaging length + PCell
+Dual-language note
+------------------
+KLayout ships Python and Ruby interpreters.  This file is the Python path.
+Load a matching Ruby PCell from Macros -> Ruby if you already maintain
+*.rb libraries.  LTK / SiEPIC-Tools can attach EBL dose properties to
+layer 1/0 after this generator writes the cell.
+Run
+---
+    python -m src.pcell_generator --out layout/output.gds
+"""
+from __future__ import annotations
+import argparse
+import csv
+import json
+import math
+import sys
+from dataclasses import dataclass, field, asdict
+from pathlib import Path
+import numpy as np
+try:
+    import klayout.db as kdb  # type: ignore
+except ImportError:
+    kdb = None  # standalone GDS fallback below
+UM = 1000  # database units per micron (1 nm)
+def write_gds_rects(path: Path, rects_um, layer=1, datatype=0, cell="TOP"):
+    """Minimal GDSII writer used when klayout.db is not installed."""
+    import struct
+    def rec(typ, dtype, payload: bytes) -> bytes:
+        n = 4 + len(payload)
+        if n % 2:
+            payload += b"\x00"
+            n += 1
+        return struct.pack(">HH", n, (typ << 8) | dtype) + payload
+    def gds_real(value: float) -> bytes:
+        if value == 0:
+            return b"\x00" * 8
+        sign = 0x80 if value < 0 else 0x00
+        mag = abs(value)
+        exp = 0
+        while mag >= 1.0:
+            mag /= 16.0
+            exp += 1
+        while mag < 0.0625:
+            mag *= 16.0
+            exp -= 1
+        mant = int(mag * (16 ** 14))
+        return bytes([sign | ((exp + 64) & 0x7F)]) + mant.to_bytes(7, "big")
+    def poly(xy):
+        flat = []
+        pts = list(xy) + [xy[0]]
+        for x, y in pts:
+            flat.extend((int(round(x * UM)), int(round(y * UM))))
+        return (
+            rec(0x08, 0, b"")
+            + rec(0x0D, 2, struct.pack(">h", layer))
+            + rec(0x0E, 2, struct.pack(">h", datatype))
+            + rec(0x10, 3, b"".join(struct.pack(">i", v) for v in flat))
+            + rec(0x11, 0, b"")
+        )
+    body = rec(0x00, 2, struct.pack(">h", 600))
+
+    body += rec(0x01, 2, struct.pack(">12h", *([2026, 9, 8, 12, 0, 0] * 2)))
+    name = cell.encode("ascii")
+    if len(name) % 2:
+        name += b"\x00"
+    lib = b"SOI_PORTFOLIO"
+    if len(lib) % 2:
+        lib += b"\x00"
+    body += rec(0x02, 6, lib)
+    body += rec(0x03, 5, gds_real(1e-3) + gds_real(1e-9))
+    body += rec(0x05, 2, struct.pack(">12h", *([2026, 9, 8, 12, 0, 0] * 2)))
+    body += rec(0x06, 6, name)
+    for x0, y0, x1, y1 in rects_um:
+        body += poly([(x0, y0), (x1, y0), (x1, y1), (x0, y1)])
+    body += rec(0x07, 0, b"")
+    body += rec(0x04, 0, b"")
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(body)
+    return path
+def beat_length(w_mmi_um: float, n=3.38, wavelength_um=1.55) -> float:
+    we = w_mmi_um + 0.05  # Goos-Hanchen
+    return 4 * n * we ** 2 / (3 * wavelength_um)
+def build_layout(w=6.0):
+    L = 1.5 * beat_length(w)
+    tap = 8.0
+    rects = [
+        (0, -w / 2, L, w / 2),
+        (-tap, 1.0, 0, 1.0 + 0.6),
+        (-tap, -1.6, 0, -1.0),
+        (L, 1.0, L + tap, 1.0 + 0.6),
+        (L, -1.6, L + tap, -1.0),
+    ]
+    Path("layout").mkdir(exist_ok=True)
+    Path("layout/mmi.json").write_text(json.dumps({"W": w, "L": L}, indent=2))
+    return rects
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", type=Path, default=Path("layout/output.gds"))
+    parser.add_argument("--preview", type=Path, default=Path("layout/preview.png"))
+    args = parser.parse_args()
+    rects = build_layout()
+    write_gds_rects(args.out, rects, cell="MMI_2X2")
+    print("wrote", args.out, "nrects", len(rects))
+if __name__ == "__main__":
+    main()
