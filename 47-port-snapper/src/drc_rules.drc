@@ -1,0 +1,6 @@
+# KLayout DRC companion for 47-port-snapper
+source($input || "layout/output.gds")
+report("port-snapper_drc", "layout/drc_report.lyrdb")
+si = input(1, 0)
+si.width(0.050, euclidian).output("min_width_50nm", "Si width < 50 nm")
+si.space(0.060, euclidian).output("min_space_60nm", "Si space < 60 nm")
