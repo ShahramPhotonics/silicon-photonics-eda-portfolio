@@ -1,0 +1,33 @@
+{
+  "status": "generic visualization only; not a PDK",
+  "layers": {
+    "SI_CORE": [
+      1,
+      0
+    ],
+    "GE_ABSORBER": [
+      2,
+      0
+    ],
+    "P_CONTACT_REGION": [
+      3,
+      0
+    ],
+    "N_CONTACT_REGION": [
+      4,
+      0
+    ],
+    "CONTACT_VIA": [
+      5,
+      0
+    ],
+    "METAL_1": [
+      6,
+      0
+    ],
+    "PORT_LABEL": [
+      10,
+      0
+    ]
+  }
+}

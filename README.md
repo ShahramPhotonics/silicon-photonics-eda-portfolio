@@ -1,6 +1,6 @@
 # Silicon Photonics EDA Portfolio
 
-Fifty compact, runnable reference prototypes for silicon-photonics layout, microfabrication automation, and EDA workflows.
+Fifty-one compact, runnable reference prototypes for silicon-photonics layout, microfabrication automation, and EDA workflows.
 
 > **Scope:** These projects demonstrate geometry generation, data flow, and software structure. They are educational prototypes—not foundry-qualified layouts, production sign-off decks, validated device simulations, or evidence of trained ML models. Projects that name commercial tools expose integration concepts or hooks unless their README says otherwise.
 
@@ -14,6 +14,7 @@ The most relevant EDA demonstrations are:
 - [41 · E-beam DRC deck](41-ebl-drc-deck) — KLayout rules plus a deliberate violation fixture.
 - [47 · Optical port snapper](47-port-snapper) — connectivity and alignment checks.
 - [50 · Tape-out pipeline](50-e2e-tapeout-pipeline) — end-to-end orchestration skeleton.
+- [51 · Lateral Si/Ge/Si PIN photodiode budget](51-ge-pin-photodiode) — assumed-input reduced-order model plus non-PDK cartoon GDS.
 
 ## Run and verify
 
@@ -93,6 +94,7 @@ Each project has its own README, generator, and geometry smoke test. Generated `
 - [48 · Dynamic GDSII Multi-Layer Boolean Engine Utility](48-boolean-engine)
 - [49 · OSA Data-to-Layout Mapper](49-osa-layout-mapper)
 - [50 · Full End-to-End Photonic Tape-out DRC/LVS Pipeline](50-e2e-tapeout-pipeline)
+- [51 · Lateral Si/Ge/Si PIN Photodiode Reduced-Order Budget](51-ge-pin-photodiode)
 
 ## Engineering notes
 

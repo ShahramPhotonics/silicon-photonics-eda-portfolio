@@ -1,0 +1,32 @@
+{
+  "inputs": {
+    "wavelength_nm": 1550.0,
+    "ge_length_um": 20.0,
+    "intrinsic_width_um": 0.6,
+    "ge_height_um": 0.5,
+    "assumed_effective_modal_absorption_per_um": 0.12,
+    "assumed_collection_efficiency": 0.9,
+    "assumed_electron_velocity_m_per_s": 60000.0,
+    "assumed_hole_velocity_m_per_s": 60000.0,
+    "relative_permittivity": 16.0,
+    "assumed_diode_series_resistance_ohm": 50.0,
+    "instrument_load_resistance_ohm": 50.0,
+    "assumed_parasitic_capacitance_f": 1.5e-14,
+    "bias_mode": "unspecified",
+    "dark_current_a": null,
+    "optical_power_w": 0.001,
+    "temperature_k": 300.0
+  },
+  "result_banner": "METHOD ESTIMATE from ASSUMED inputs. Not a measurement. Not a foundry spec. Not a reproduction of Virot 2017 or Lischke 2021.",
+  "model_level": "reduced-order analytic/numerical budget; not TCAD or full-wave",
+  "absorbed_fraction": 0.9092820467105875,
+  "responsivity_a_per_w": 1.0230726747365952,
+  "parallel_plate_junction_capacitance_f": 2.36111675008e-15,
+  "total_capacitance_f": 1.736111675008e-14,
+  "photocurrent_a": 0.0010230726747365952,
+  "transit_3db_hz": 55332665994.19195,
+  "rc_3db_hz": 91672796876.5273,
+  "combined_3db_hz": 45796187147.31671,
+  "bandwidth_interpretation": "high-field ceiling only; operating-point bias unspecified",
+  "dark_current_prediction": "not modeled; supply a measured/process-calibrated value"
+}
