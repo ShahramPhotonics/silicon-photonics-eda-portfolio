@@ -1,0 +1,14 @@
+{
+  "result_banner": "METHOD ESTIMATE FROM ASSUMED INPUTS \u2014 NOT MEASURED",
+  "absorbed_fraction": 0.9092820467105875,
+  "responsivity_a_per_w": 1.0230726747365952,
+  "rc_3db_hz": 91679114684.27151,
+  "rc_3db_ghz": 91.67911468427151,
+  "assumed_absorption_per_um": 0.12,
+  "length_um": 20.0,
+  "width_um": 0.6,
+  "validation_level": [
+    "analytically modeled",
+    "numerically evaluated"
+  ]
+}
