@@ -1,14 +1,47 @@
 {
   "result_banner": "METHOD ESTIMATE FROM ASSUMED INPUTS \u2014 NOT MEASURED",
-  "absorbed_fraction": 0.9092820467105875,
-  "responsivity_a_per_w": 1.0230726747365952,
-  "rc_3db_hz": 91679114684.27151,
-  "rc_3db_ghz": 91.67911468427151,
-  "assumed_absorption_per_um": 0.12,
-  "length_um": 20.0,
-  "width_um": 0.6,
+  "device": "tfln bidirectional serrodyne optical frequency shifter",
+  "mechanism": "linear Pockels serrodyne phase ramp with reverse-wave walk-off",
+  "v_pi_V": 7.702486054266358,
+  "forward_modulation_depth": 0.9999999997071622,
+  "reverse_modulation_depth": 0.999996359371771,
+  "operating_conversion_efficiency": 0.9398082917209342,
+  "operating_csr_dB": 139.69709328564267,
+  "operating_ssr_model_dB": 30.45757490560675,
+  "metrics": {
+    "ideal_conversion_efficiency": 0.9997840306979627,
+    "flyback_ssr_model": 30.45757490560675,
+    "flyback_ssr_model_F0p03_dB": 30.45757490560675,
+    "flyback_ssr_model_F0p10_dB": 20.0,
+    "amplitude_error_csr_trend": 53.84263608342229,
+    "vpi_length_scaling": 2.0,
+    "reverse_walkoff_trend": 5.82126910493308e-05
+  },
+  "harmonic_power_fraction": {
+    "-8": 0.0010712008889834242,
+    "-7": 0.0010049855823095091,
+    "-6": 0.0009301481852721598,
+    "-5": 0.0008445857421146473,
+    "-4": 0.0007445338417723078,
+    "-3": 0.0006229373177116329,
+    "-2": 0.0004658029129471034,
+    "-1": 0.00024574242898932265,
+    "0": 1.0076969493995058e-14,
+    "1": 0.9398082917209342,
+    "2": 0.0035833189558165867,
+    "3": 0.0018195392571446378,
+    "4": 0.0013196814043321123,
+    "5": 0.0010653125665530665,
+    "6": 0.0008992729706719369,
+    "7": 0.0007754651202993695,
+    "8": 0.000675726482094582
+  },
   "validation_level": [
     "analytically modeled",
     "numerically evaluated"
+  ],
+  "limitations": [
+    "Assumed inputs. Not measured.",
+    "No FDTD mode solver and no HFSS extraction."
   ]
 }

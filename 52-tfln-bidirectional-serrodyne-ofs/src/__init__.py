@@ -1,1 +1,1 @@
-"""Generic analytic photonic-device engineering model."""
+"""TFLN bidirectional serrodyne optical frequency shifter."""
